@@ -1,0 +1,38 @@
+function display_report()
+    fprintf('\n');
+    fprintf('══════════════════════════════════════════════════════════\n');
+    fprintf('   AI-DRIVEN VEHICLE SECURITY — IMAGE PROCESSING REPORT\n');
+    fprintf('══════════════════════════════════════════════════════════\n');
+    fprintf(' Institution : Jaypee Institute of Information Technology\n');
+    fprintf(' Course      : Applied Mathematical Computation (24B35EC212)\n');
+    fprintf(' Submitted to: Prof. Juhi Gupta\n');
+    fprintf(' Team        : Jessica Goel | Aditi Gupta | Kushagra Rastogi\n');
+    fprintf('──────────────────────────────────────────────────────────\n');
+    fprintf(' SCENARIO     : Moving car on winding road (300m, 40s)\n');
+    fprintf(' SENSORS USED : NONE — pure image processing on synthetic frames\n');
+    fprintf('──────────────────────────────────────────────────────────\n');
+    fprintf(' IMAGE PROCESSING PIPELINE:\n');
+    fprintf('  [1] generate_synthetic_frame.m\n');
+    fprintf('      → Renders 640x360 RGB camera view each frame\n');
+    fprintf('  [2] ip_edge_detection.m   (Canny)\n');
+    fprintf('      → rgb2gray → imgaussfilt → edge(Canny)\n');
+    fprintf('      → bwlabel/regionprops → POTHOLE SCORE\n');
+    fprintf('  [3] ip_object_detection.m (HSV + Morphology)\n');
+    fprintf('      → rgb2hsv → imbinarize → imopen/imclose\n');
+    fprintf('      → bwlabel → VEHICLE & PEDESTRIAN BBOXES\n');
+    fprintf('  [4] ip_lane_detection.m   (Hough Transform)\n');
+    fprintf('      → ROI mask → edge → hough/houghpeaks\n');
+    fprintf('      → houghlines → polyfit → CURVE SCORE\n');
+    fprintf('  [5] ip_optical_flow.m     (Lucas-Kanade)\n');
+    fprintf('      → opticalFlowLK → estimateFlow\n');
+    fprintf('      → flow.Magnitude → MOTION SCORE\n');
+    fprintf('  [6] ip_histogram_analysis.m (CLAHE)\n');
+    fprintf('      → imhist → Shannon entropy → adapthisteq\n');
+    fprintf('      → VISIBILITY SCORE & CONDITIONS\n');
+    fprintf('──────────────────────────────────────────────────────────\n');
+    fprintf(' THREAT FUSION:\n');
+    fprintf('   Overall = σ( Σ wᵢ × IPᵢ )  where σ = 1/(1+e^{-6(x-0.5)})\n');
+    fprintf('   Weights: Pothole=0.20 | Collision=0.30 | Ped=0.20\n');
+    fprintf('            Curve=0.15  | Motion=0.15\n');
+    fprintf('══════════════════════════════════════════════════════════\n\n');
+end
